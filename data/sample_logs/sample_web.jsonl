@@ -1,0 +1,13 @@
+{"remote_addr":"192.168.1.30","method":"GET","uri":"/","status":200,"http_user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64)","timestamp":"2026-04-17T03:10:00Z"}
+{"remote_addr":"192.168.1.30","method":"GET","uri":"/assets/style.css","status":200,"http_user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64)","timestamp":"2026-04-17T03:10:01Z"}
+{"remote_addr":"192.168.1.30","method":"GET","uri":"/favicon.ico","status":200,"http_user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64)","timestamp":"2026-04-17T03:10:02Z"}
+{"remote_addr":"10.0.0.5","method":"GET","uri":"/health","status":200,"http_user_agent":"kube-probe/1.28","timestamp":"2026-04-17T03:10:05Z"}
+{"remote_addr":"45.33.32.156","method":"GET","uri":"/search?q=1' OR 1=1--","status":200,"http_user_agent":"sqlmap/1.5.12#stable","timestamp":"2026-04-17T03:12:00Z"}
+{"remote_addr":"45.33.32.156","method":"POST","uri":"/login","status":401,"http_user_agent":"sqlmap/1.5.12#stable","timestamp":"2026-04-17T03:12:01Z"}
+{"remote_addr":"45.33.32.156","method":"GET","uri":"/admin/../../../etc/passwd","status":403,"http_user_agent":"Nikto/2.1.6","timestamp":"2026-04-17T03:12:05Z"}
+{"remote_addr":"198.51.100.23","method":"POST","uri":"/api/login","status":401,"http_user_agent":"Mozilla/5.0","timestamp":"2026-04-17T03:13:00Z"}
+{"remote_addr":"198.51.100.23","method":"POST","uri":"/api/login","status":401,"http_user_agent":"Mozilla/5.0","timestamp":"2026-04-17T03:13:01Z"}
+{"remote_addr":"198.51.100.23","method":"POST","uri":"/api/login","status":401,"http_user_agent":"Mozilla/5.0","timestamp":"2026-04-17T03:13:02Z"}
+{"remote_addr":"198.51.100.23","method":"POST","uri":"/api/login","status":401,"http_user_agent":"Mozilla/5.0","timestamp":"2026-04-17T03:13:03Z"}
+{"remote_addr":"198.51.100.23","method":"POST","uri":"/api/login","status":200,"http_user_agent":"Mozilla/5.0","timestamp":"2026-04-17T03:13:04Z"}
+{"remote_addr":"10.0.0.1","method":"GET","uri":"/metrics","status":200,"http_user_agent":"Prometheus/2.45","timestamp":"2026-04-17T03:15:00Z"}

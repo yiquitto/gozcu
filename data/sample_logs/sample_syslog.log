@@ -1,0 +1,11 @@
+<38>1 2026-04-17T03:12:01Z firewall sshd 4821 AUTH Failed password for root from 203.0.113.50 port 22
+<38>1 2026-04-17T03:12:03Z firewall sshd 4821 AUTH Failed password for root from 203.0.113.50 port 22
+<38>1 2026-04-17T03:12:05Z firewall sshd 4821 AUTH Failed password for admin from 203.0.113.50 port 22
+<38>1 2026-04-17T03:12:07Z firewall sshd 4821 AUTH Failed password for admin from 203.0.113.50 port 22
+<38>1 2026-04-17T03:12:09Z firewall sshd 4821 AUTH Failed password for root from 203.0.113.50 port 22
+<46>1 2026-04-17T03:15:00Z webserver nginx 9012 ACCESS GET /index.html 200 from 10.0.0.20
+<46>1 2026-04-17T03:15:01Z webserver nginx 9012 ACCESS GET /api/users 200 from 10.0.0.20
+<30>1 2026-04-17T03:20:00Z db-server mysqld 3306 QUERY ALERT: SELECT * FROM users WHERE 1=1 UNION SELECT password FROM credentials -- from 45.33.32.156
+<29>1 2026-04-17T03:25:00Z core-switch kernel 0 ALERT: Unusual outbound traffic spike to 185.220.101.1:443 - 500MB in 30s from 192.168.1.100
+<46>1 2026-04-17T03:30:00Z dns-server named 53 INFO: NTP sync completed successfully
+<46>1 2026-04-17T03:30:05Z loadbalancer haproxy 8080 HEALTH: keepalive check passed for backend-pool-1
