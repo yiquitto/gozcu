@@ -123,6 +123,9 @@
 
             case 'new_decision':
                 addDecision(msg);
+                // Automatically switch to decisions tab so the user sees the countdown
+                const decisionBtn = document.querySelector('.nav-btn[data-tab="decisions"]');
+                if (decisionBtn) decisionBtn.click();
                 break;
 
             case 'countdown_tick':

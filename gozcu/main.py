@@ -145,14 +145,19 @@ class GozcuPipeline:
                 f"category={assessment.category.value}, ip={event.source_ip}",
             )
             decision = Decision(event_id=event.event_id)
-            result = await self._state_machine.start_countdown(
-                decision, assessment, source_ip=event.source_ip,
+            
+            # Start countdown as a background task to prevent blocking the worker pipeline
+            asyncio.create_task(
+                self._state_machine.start_countdown(
+                    decision, assessment, source_ip=event.source_ip,
+                )
             )
+            
             summary["decision"] = {
-                "decision_id": result.decision_id,
-                "state": result.state.value,
-                "resolved_by": result.resolved_by,
-                "action_taken": result.action_taken,
+                "decision_id": decision.decision_id,
+                "state": decision.state.value,
+                "resolved_by": decision.resolved_by,
+                "action_taken": decision.action_taken,
             }
         else:
             # Low-risk: log to audit as MONITOR
