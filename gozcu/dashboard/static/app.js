@@ -20,6 +20,15 @@
         maxReconnect: 10,
     };
 
+    const charts = {
+        attackerIp: null,
+        threatCategory: null,
+        data: {
+            ips: {},
+            categories: {}
+        }
+    };
+
     // --- DOM References ---
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => document.querySelectorAll(sel);
@@ -95,6 +104,9 @@
                 if (msg.events) {
                     state.events = msg.events;
                     renderAllEvents();
+                    // Feed initial events to charts
+                    msg.events.reverse().forEach(updateCharts);
+                    msg.events.reverse(); // put back in original order
                 }
                 if (msg.stats) updateStats(msg.stats);
                 break;
@@ -103,6 +115,7 @@
                 state.events.unshift(msg);
                 renderEventCard(msg, true);
                 updateEventCount();
+                updateCharts(msg);
                 if (msg.threat_score >= 70) {
                     showToast(`HIGH RISK: ${msg.category} from ${msg.source_ip} (score: ${msg.threat_score})`, 'danger');
                 }
@@ -446,7 +459,55 @@
     $('#modal-close').addEventListener('click', () => dom.modal.style.display = 'none');
     $('.modal-overlay').addEventListener('click', () => dom.modal.style.display = 'none');
 
+    // --- Charts ---
+    function initCharts() {
+        const ctxIp = document.getElementById('attackerIpChart');
+        const ctxCat = document.getElementById('threatCategoryChart');
+        if (!ctxIp || !ctxCat) return;
+
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.font.family = "'Inter', -apple-system, sans-serif";
+
+        charts.attackerIp = new Chart(ctxIp.getContext('2d'), {
+            type: 'bar',
+            data: { labels: [], datasets: [{ label: 'Attacks', data: [], backgroundColor: 'rgba(0, 212, 255, 0.6)', borderColor: '#00d4ff', borderWidth: 1, borderRadius: 4 }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { grid: { display: false } } } }
+        });
+
+        charts.threatCategory = new Chart(ctxCat.getContext('2d'), {
+            type: 'doughnut',
+            data: { labels: [], datasets: [{ data: [], backgroundColor: ['#ef4444', '#f97316', '#f59e0b', '#3b82f6', '#10b981', '#7b2ff7'], borderWidth: 0 }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 12 } } }, cutout: '70%' }
+        });
+    }
+
+    function updateCharts(ev) {
+        if (ev.source === 'pre_filter' || ev.category === 'BENIGN') return; // Focus charts on actual threats
+        
+        // IP Data
+        const ip = ev.source_ip || 'Unknown';
+        charts.data.ips[ip] = (charts.data.ips[ip] || 0) + 1;
+        
+        // Category Data
+        const cat = ev.category || 'UNKNOWN';
+        charts.data.categories[cat] = (charts.data.categories[cat] || 0) + 1;
+
+        if (!charts.attackerIp || !charts.threatCategory) return;
+
+        // Update IP Chart (Top 5)
+        const sortedIps = Object.entries(charts.data.ips).sort((a, b) => b[1] - a[1]).slice(0, 5);
+        charts.attackerIp.data.labels = sortedIps.map(i => i[0]);
+        charts.attackerIp.data.datasets[0].data = sortedIps.map(i => i[1]);
+        charts.attackerIp.update();
+
+        // Update Category Chart
+        charts.threatCategory.data.labels = Object.keys(charts.data.categories);
+        charts.threatCategory.data.datasets[0].data = Object.values(charts.data.categories);
+        charts.threatCategory.update();
+    }
+
     // --- Init ---
+    initCharts();
     connectWS();
     fetchStats();
     setInterval(fetchStats, 5000);

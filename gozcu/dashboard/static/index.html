@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -90,6 +91,22 @@
     <main id="main-content">
         <!-- Live Feed Tab -->
         <section id="tab-live" class="tab-content active">
+            <!-- Analytics Section -->
+            <div class="analytics-container">
+                <div class="chart-card">
+                    <h3>Top Attacker IPs</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="attackerIpChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3>Threat Categories</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="threatCategoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
             <div class="section-header">
                 <h2>Real-Time Event Stream</h2>
                 <div class="controls">

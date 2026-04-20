@@ -90,6 +90,9 @@ class ActionExecutor:
             return self._whitelist.is_whitelisted(target)
         elif action == "RESTART_SERVICE":
             return self._whitelist.is_critical_service(target)
+        elif action == "KILL_PROCESS":
+            protected_processes = {"explorer.exe", "svchost.exe", "system", "python.exe", "cmd.exe", "powershell.exe", "smss.exe", "csrss.exe", "wininit.exe", "services.exe", "lsass.exe"}
+            return target.lower() in protected_processes
         return False
 
     async def _simulate(self, action: str, target: str) -> ActionResult:
@@ -116,6 +119,7 @@ class ActionExecutor:
             "NULL_ROUTE": self._real_null_route,
             "RESTART_SERVICE": self._real_restart_service,
             "QUARANTINE": self._real_quarantine,
+            "KILL_PROCESS": self._real_kill_process,
         }
         handler = handlers.get(action)
         if handler is None:
@@ -169,6 +173,30 @@ class ActionExecutor:
         """Quarantine a resource. Placeholder for real implementation."""
         logger.critical(f"[REAL] QUARANTINE: {target}")
         return ActionResult(True, "QUARANTINE", target, f"Resource {target} quarantined", False)
+
+    async def _real_kill_process(self, target: str) -> ActionResult:
+        """Kill a process by image name via Windows taskkill."""
+        import subprocess
+        command = ["taskkill", "/F", "/IM", target]
+        
+        try:
+            process = await asyncio.create_subprocess_exec(
+                *command,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE
+            )
+            stdout, stderr = await process.communicate()
+            
+            if process.returncode == 0:
+                logger.critical(f"[REAL] KILL_PROCESS: {target} terminated via taskkill")
+                return ActionResult(True, "KILL_PROCESS", target, f"Process {target} terminated.", False)
+            else:
+                err_msg = stderr.decode('cp1254', errors='replace').strip() or stdout.decode('cp1254', errors='replace').strip()
+                logger.error(f"Failed to kill process {target}: {err_msg}")
+                return ActionResult(False, "KILL_PROCESS", target, f"Failed: {err_msg}", False)
+        except Exception as e:
+            logger.error(f"Exception while killing process {target}: {e}")
+            return ActionResult(False, "KILL_PROCESS", target, f"Exception: {str(e)}", False)
 
     def get_history(self) -> list[ActionResult]:
         """Return action execution history."""
