@@ -37,6 +37,10 @@ class ReasoningEngine:
     Stage 1: Pre-Filter (rule-based, instant)
     Stage 2: Cache Lookup (TTL-based, instant)
     Stage 3: LLM API Call (async, with retry and rate limiting)
+    # burasi sistemin en zeki kismi. 3 asamali bir zeka hatti kurdum:
+    # 1. pre-filter (basit kurallar)
+    # 2. cache (daha once gorduysek hizlica hatirla)
+    # 3. gercek llm (eger yukaridaki ikisinden gecemediyse yapay zekaya sor)
     """
 
     def __init__(
@@ -113,6 +117,8 @@ class ReasoningEngine:
 
     async def _call_llm(self, event: TelemetryEvent) -> ThreatAssessment:
         """Call the LLM API with retry and rate limiting."""
+        # burasi yerel yapay zekaya baglandigim fonksiyon.
+        # timeout suresini 60 saniyeye cikardim ki sistem agir ataklari analiz ederken patlamasin.
         user_prompt = build_user_prompt(event)
         payload = {
             "model": self._model,
@@ -151,6 +157,7 @@ class ReasoningEngine:
                         return validate_llm_output(raw_content, event.event_id)
 
             except asyncio.TimeoutError:
+                # eger yapay zeka zamaninda cevap veremezse sistemi durdurmamasi icin timeout hatasini yakaliyorum.
                 logger.warning(
                     f"LLM API timeout (attempt {attempt}/{_MAX_RETRIES})",
                     extra={"event_id": event.event_id},

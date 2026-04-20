@@ -38,6 +38,7 @@ class ActionExecutor:
 
     In simulation mode (default), no real system commands are executed.
     All actions are logged regardless of mode.
+    # burasi aksiyonlari (kill process, block ip) calistiran sinif.
     """
 
     def __init__(
@@ -60,6 +61,7 @@ class ActionExecutor:
             target: Target IP, service name, or resource identifier
         """
         # === WHITELIST CHECK — ALWAYS FIRST ===
+        # guvenlik agi: sistem kendini kapatmasin diye isleme baslamadan once kontrol ediyorum.
         if self._is_protected(action, target):
             result = ActionResult(
                 success=False,
@@ -176,6 +178,7 @@ class ActionExecutor:
 
     async def _real_kill_process(self, target: str) -> ActionResult:
         """Kill a process by image name via Windows taskkill."""
+        # taskkill kullanarak zararli programin fisini ceken fonksiyon.
         import subprocess
         command = ["taskkill", "/F", "/IM", target]
         

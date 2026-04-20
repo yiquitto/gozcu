@@ -33,6 +33,7 @@ class DashboardServer:
     aiohttp-based dashboard server with WebSocket support.
 
     Serves the web UI and provides real-time updates via WebSocket.
+    # on yuz (frontend) ile arka planin (backend) haberlesmesini saglayan kopru burasi.
     """
 
     def __init__(self, pipeline: GozcuPipeline, config: Config) -> None:
@@ -67,6 +68,7 @@ class DashboardServer:
 
     async def _ws_handler(self, request: web.Request) -> web.WebSocketResponse:
         """Handle WebSocket connections for real-time updates."""
+        # websocket baglantisi kurup kullaniciya canli veri (stream) akisi sagliyorum.
         ws = web.WebSocketResponse()
         await ws.prepare(request)
 

@@ -44,6 +44,9 @@ logger = logging.getLogger("gozcu.main")
 class GozcuPipeline:
     """
     Main application pipeline.
+    # tum sistemi bir araya getirdigim ana sinif burasi.
+    # veriyi aliyoruz -> analiz ediyoruz -> karar veriyoruz -> audite kaydediyoruz.
+    """
 
     Wires all components together and processes events through:
     Ingest → Analyze → Decide (if high-risk) → Audit
@@ -108,11 +111,13 @@ class GozcuPipeline:
         Returns a summary dict of the processing result.
         """
         # Step 1: Ingest
+        # once gelen ham logu alip sistemin anlayacagi formata ceviriyoruz.
         event = await self._ingestor.ingest(raw_data, source_type, source_ip)
         if event is None:
             return None
 
         # Step 2: Analyze
+        # burada asil yapay zeka beynini devreye sokuyorum. once pre-filter ve cache'e bakacak.
         assessment = await self._engine.analyze(event)
         self._assessments[event.event_id] = assessment
 
@@ -139,6 +144,7 @@ class GozcuPipeline:
                 pass
 
         # Step 3: Decision (only for high-risk events)
+        # eger yapay zeka buna yuksek riskli dediyse 30 saniyelik karar mekanizmasini baslatiyorum.
         if assessment.is_high_risk:
             logger.warning(
                 f"HIGH RISK EVENT: score={assessment.threat_score}, "
@@ -147,6 +153,8 @@ class GozcuPipeline:
             decision = Decision(event_id=event.event_id)
             
             # Start countdown as a background task to prevent blocking the worker pipeline
+            # hocaya not: yapay zeka 30 saniye beklerken diger loglari okumayi kesmesin diye
+            # burayi asenkron bir task olarak calistirdim. boylece sistem asla donmuyor.
             asyncio.create_task(
                 self._state_machine.start_countdown(
                     decision, assessment, source_ip=event.source_ip,

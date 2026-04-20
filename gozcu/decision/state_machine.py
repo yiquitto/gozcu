@@ -34,6 +34,7 @@ class DecisionStateMachine:
 
     For each high-risk event, creates a Decision, starts a timer,
     and waits for analyst input or timeout.
+    # burasi karar motoru, 30 saniye kurali burada calisiyor.
     """
 
     def __init__(
@@ -101,6 +102,7 @@ class DecisionStateMachine:
         )
 
         # Wait for either analyst action or timeout
+        # sistemin 30 saniye boyunca analistin (benim) onayimi veya reddimi bekledigi yer.
         try:
             await asyncio.wait_for(
                 resolved_event.wait(),
@@ -189,6 +191,7 @@ class DecisionStateMachine:
 
         if assessment.confidence >= self._confidence_threshold:
             # High confidence — take autonomous action
+            # analist sureyi asarsa ve yapay zeka kendisine %90 uzeri guveniyorsa sistemi kendi basina savunmasina izin veriyorum.
             action = assessment.recommended_action
             logger.warning(
                 f"AUTONOMOUS ACTION: {action} (confidence={assessment.confidence})",

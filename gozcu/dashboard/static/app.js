@@ -124,6 +124,7 @@
             case 'new_decision':
                 addDecision(msg);
                 // Automatically switch to decisions tab so the user sees the countdown
+                // kullanici paneli aninda gorsun diye karar geldiginde sekmeyi otomatik degistiriyorum.
                 const decisionBtn = document.querySelector('.nav-btn[data-tab="decisions"]');
                 if (decisionBtn) decisionBtn.click();
                 break;
@@ -464,6 +465,7 @@
 
     // --- Charts ---
     function initCharts() {
+        // canli istatistikleri chart.js kullanarak cizdirdigim yer.
         const ctxIp = document.getElementById('attackerIpChart');
         const ctxCat = document.getElementById('threatCategoryChart');
         if (!ctxIp || !ctxCat) return;
@@ -487,6 +489,7 @@
     function updateCharts(ev) {
         if (ev.source === 'pre_filter' || ev.category === 'BENIGN') return; // Focus charts on actual threats
         
+        // yeni bir zararli bulundugunda sayfalari yenilemeye gerek kalmadan grafikleri anlik guncelliyorum.
         // IP Data
         const ip = ev.source_ip || 'Unknown';
         charts.data.ips[ip] = (charts.data.ips[ip] || 0) + 1;
