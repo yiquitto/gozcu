@@ -46,7 +46,6 @@ class GozcuPipeline:
     Main application pipeline.
     # tum sistemi bir araya getirdigim ana sinif burasi.
     # veriyi aliyoruz -> analiz ediyoruz -> karar veriyoruz -> audite kaydediyoruz.
-    """
 
     Wires all components together and processes events through:
     Ingest → Analyze → Decide (if high-risk) → Audit
