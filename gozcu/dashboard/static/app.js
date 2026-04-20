@@ -475,13 +475,13 @@
 
         charts.attackerIp = new Chart(ctxIp.getContext('2d'), {
             type: 'bar',
-            data: { labels: [], datasets: [{ label: 'Attacks', data: [], backgroundColor: 'rgba(0, 212, 255, 0.6)', borderColor: '#00d4ff', borderWidth: 1, borderRadius: 4 }] },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { grid: { display: false } } } }
+            data: { labels: [], datasets: [{ label: 'Attacks', data: [], backgroundColor: 'rgba(59, 130, 246, 0.4)', borderColor: '#3b82f6', borderWidth: 1, borderRadius: 4 }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.03)' } }, x: { grid: { display: false } } } }
         });
 
         charts.threatCategory = new Chart(ctxCat.getContext('2d'), {
             type: 'doughnut',
-            data: { labels: [], datasets: [{ data: [], backgroundColor: ['#ef4444', '#f97316', '#f59e0b', '#3b82f6', '#10b981', '#7b2ff7'], borderWidth: 0 }] },
+            data: { labels: [], datasets: [{ data: [], backgroundColor: ['#e11d48', '#ea580c', '#d97706', '#3b82f6', '#059669', '#64748b'], borderWidth: 0 }] },
             options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 12 } } }, cutout: '70%' }
         });
     }

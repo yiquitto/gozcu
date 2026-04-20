@@ -4,40 +4,40 @@
 
 /* --- Design Tokens --- */
 :root {
-    /* Background layers */
-    --bg-base: #0a0e1a;
-    --bg-surface: #111827;
-    --bg-elevated: #1a2236;
-    --bg-card: #151d2e;
-    --bg-hover: #1e2942;
+    /* Background layers - Enterprise Matte Dark */
+    --bg-base: #0B0E14;
+    --bg-surface: #121721;
+    --bg-elevated: #1A212E;
+    --bg-card: #151B26;
+    --bg-hover: #1E2738;
 
-    /* Accent colors */
-    --accent-primary: #00d4ff;
-    --accent-secondary: #7b2ff7;
-    --accent-gradient: linear-gradient(135deg, #00d4ff, #7b2ff7);
-    --accent-glow: 0 0 20px rgba(0, 212, 255, 0.15);
+    /* Accent colors - Serious Electric Blue */
+    --accent-primary: #3b82f6;
+    --accent-secondary: #0ea5e9;
+    --accent-gradient: linear-gradient(135deg, #3b82f6, #0ea5e9);
+    --accent-glow: 0 0 16px rgba(59, 130, 246, 0.1);
 
-    /* Semantic colors */
+    /* Semantic colors - Muted */
     --color-success: #10b981;
     --color-warning: #f59e0b;
     --color-danger: #ef4444;
     --color-info: #3b82f6;
 
     /* Risk colors */
-    --risk-critical: #ef4444;
-    --risk-high: #f97316;
-    --risk-medium: #f59e0b;
-    --risk-low: #10b981;
-    --risk-benign: #6b7280;
+    --risk-critical: #e11d48;
+    --risk-high: #ea580c;
+    --risk-medium: #d97706;
+    --risk-low: #059669;
+    --risk-benign: #64748b;
 
     /* Text */
-    --text-primary: #f1f5f9;
+    --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
     --text-muted: #475569;
 
     /* Borders */
     --border-color: #1e293b;
-    --border-accent: rgba(0, 212, 255, 0.2);
+    --border-accent: rgba(59, 130, 246, 0.3);
 
     /* Radius */
     --radius-sm: 6px;
@@ -99,13 +99,10 @@ body {
 }
 
 .logo h1 {
-    font-size: 1.3rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    background: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text-primary);
 }
 
 .badge-version {
@@ -144,7 +141,7 @@ body {
 
 .nav-btn.active {
     color: var(--accent-primary);
-    background: rgba(0, 212, 255, 0.08);
+    background: rgba(59, 130, 246, 0.08);
 }
 
 .nav-btn.active::after {
@@ -223,12 +220,12 @@ body {
 }
 
 .stat-card {
-    padding: 12px 16px;
-    background: rgba(21, 29, 46, 0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    padding: 14px 18px;
+    background: rgba(18, 23, 33, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: var(--radius-md);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.03);
     text-align: center;
     transition: var(--transition);
 }
@@ -288,18 +285,18 @@ body {
 }
 
 .chart-card {
-    background: rgba(21, 29, 46, 0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(18, 23, 33, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.03);
     border-radius: var(--radius-md);
-    padding: 16px;
+    padding: 20px;
     transition: var(--transition);
 }
 
 .chart-card:hover {
-    border-color: rgba(0, 212, 255, 0.2);
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.05);
+    border-color: rgba(59, 130, 246, 0.2);
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.04);
 }
 
 .chart-card h3 {
@@ -374,13 +371,13 @@ body {
 
 .event-card {
     display: grid;
-    grid-template-columns: 6px 100px 1fr auto;
+    grid-template-columns: 4px 90px 1fr auto;
     gap: 16px;
     align-items: center;
-    padding: 14px 18px;
-    background: rgba(21, 29, 46, 0.4);
+    padding: 12px 18px;
+    background: rgba(18, 23, 33, 0.4);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.02);
     border-radius: var(--radius-md);
     transition: var(--transition);
     cursor: pointer;
@@ -472,12 +469,12 @@ body {
 }
 
 .decision-card {
-    background: rgba(21, 29, 46, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(18, 23, 33, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
     border-radius: var(--radius-lg);
-    padding: 20px;
+    padding: 24px;
     position: relative;
     overflow: hidden;
     animation: fadeIn 0.4s ease;
