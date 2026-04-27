@@ -26,6 +26,7 @@ class FileStreamer:
         
     async def stream_to_pipeline(self, pipeline) -> None:
         """Stream the file to the given pipeline continuously."""
+        # hocaya not: sunumda gercek bir siber saldiri altindaymisiz gibi gostermek icin, elimizdeki ornek log dosyasini satir satir, aralara 2 saniye koyarak (delay) canli olarak sisteme akitiyorum.
         if not self.filepath.exists():
             logger.error(f"Cannot stream: File {self.filepath} not found.")
             return

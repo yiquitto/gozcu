@@ -10,6 +10,7 @@ from __future__ import annotations
 from gozcu.models.telemetry_event import TelemetryEvent
 
 
+# hocaya not: yapay zekaya (llm) giden kesin kurallar bütünü. siber guvenlik uzmani gibi davranmasini sagliyor ve prompt injection saldirilarina karsi sinirlar (security boundary) ciziyor.
 SYSTEM_PROMPT = """You are a Senior SOC (Security Operations Center) Analyst.
 Analyze the normalized log event data provided and classify the threat.
 

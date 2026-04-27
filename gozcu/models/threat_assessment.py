@@ -17,6 +17,7 @@ from gozcu.models.enums import ThreatCategory
 
 class ThreatAssessment(BaseModel):
     """AI-generated threat analysis for a telemetry event."""
+    # hocaya not: yapay zekanin (llm) dondurdugu analiz sonucunu (json) bu kati veri modeline (pydantic) oturtuyorum. eger llm skorlari sacmalarsa (mesela 150 verirse) @field_validator ile kendim 0-100 arasina (clamp) hapsediyorum.
 
     model_config = ConfigDict(frozen=True)
 

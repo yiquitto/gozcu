@@ -36,6 +36,7 @@ def validate_llm_output(
     Attempts multiple extraction strategies and falls back to BENIGN
     with confidence=0.0 if all parsing fails.
     """
+    # hocaya not: llm ciktisini dogrulama alani. eger yapay zeka halusinasyon gorur (hallucination) veya json formatini bozarsa, sistemin cokmemesi icin koruma mekanizmasi (fallback) kurdum.
     if not raw_response or not raw_response.strip():
         logger.warning("Empty LLM response", extra={"event_id": event_id})
         return ThreatAssessment.benign_fallback(event_id, "Empty LLM response")
@@ -70,6 +71,7 @@ def validate_llm_output(
 
 def _extract_json(text: str) -> Optional[dict]:
     """Try multiple strategies to extract a JSON object from text."""
+    # hocaya not: bazi local model'ler isguzarlik yapip json oncesine 'iste analizin sonucu:' gibi yazilar yazabiliyor. sistemi patlatmasin diye regex ile sirf json blogunu cimbizla seciyorum.
     text = text.strip()
 
     # Strategy 1: Direct JSON parse

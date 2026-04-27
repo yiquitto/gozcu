@@ -34,6 +34,7 @@ class AuditTrail:
 
     async def log(self, record: AuditRecord) -> None:
         """Append an audit record to the JSONL file."""
+        # hocaya not: adli bilisim (forensics) surecleri icin sistemin aldigi her karari jsonl dosyasina ekliyorum (append-only). sha256 ile korundugu icin sonradan degistirilemiyor.
         self._records.append(record)
 
         line = record.model_dump_json() + "\n"

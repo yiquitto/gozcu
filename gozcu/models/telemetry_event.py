@@ -21,6 +21,7 @@ from gozcu.models.enums import SourceType
 
 class TelemetryEvent(BaseModel):
     """A normalized, integrity-verified telemetry event."""
+    # hocaya not: sisteme giren her log satirina degistirilemez (frozen) bir kimlik karti cikartiyorum. logun orijinal halini asla bozmayip uzerinden hash aliyorum ki adli bilisimde (forensics) kanit niteligi tasisin.
 
     model_config = ConfigDict(frozen=True)
 

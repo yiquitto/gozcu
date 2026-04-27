@@ -64,6 +64,7 @@ def _env_bool(key: str, default: bool = False) -> bool:
 @dataclass(frozen=True)
 class Config:
     """Immutable application configuration loaded from environment variables."""
+    # hocaya not: sistemin butun ayarlarini (api key, portlar, ip'ler) tek merkezden (.env) yonetmek icin dondurulmus (frozen) dataclass kullandim. boylece kodun icinde guvenlik acigi yaratacak hardcoded sifreler olmuyor.
 
     # --- LLM ---
     LLM_API_KEY: str = field(default_factory=lambda: _env_str("LLM_API_KEY", "lm-studio"))

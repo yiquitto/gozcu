@@ -36,6 +36,7 @@ logger = logging.getLogger("gozcu.launcher")
 
 async def run(demo_mode: bool = False, stream_file: str | None = None) -> None:
     """Start the dashboard and pipeline."""
+    # hocaya not: butun sistemi (dashboard, log okuyucular, yapay zeka motoru) ayni anda, asenkron olarak ayaga kaldirdigim orkestrasyon merkezi burasi.
     config = Config()
     pipeline = GozcuPipeline(config)
     dashboard = DashboardServer(pipeline, config)

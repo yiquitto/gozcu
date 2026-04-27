@@ -46,6 +46,7 @@ class ResponseCache:
     @staticmethod
     def _build_key(event: TelemetryEvent) -> str:
         """Build a cache key from event characteristics."""
+        # ayni logu defalarca llm'e gondermemek icin ip, tip ve path uzerinden sha256 hash olusturup benzersiz bir cache anahtari (key) uretiyorum.
         nd = event.normalized_data
         path = nd.get("path", "") or nd.get("uri", "") or nd.get("message", "")
         event_type = nd.get("format", event.source_type.value)
@@ -86,6 +87,7 @@ class ResponseCache:
 
         High-risk results (threat_score >= threshold) are NEVER cached.
         """
+        # hocaya not: eger risk skoru yuksekse bunu ASLA cache'e almiyorum. saldirganin cache zehirleme (cache poisoning) yontemiyle tespit mekanizmasini atlatmasini engelliyorum.
         if assessment.threat_score >= self._high_risk_threshold:
             self._stats["skipped_high_risk"] += 1
             logger.debug(

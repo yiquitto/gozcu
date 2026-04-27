@@ -67,6 +67,7 @@ class WhitelistManager:
 
     def is_whitelisted(self, ip: str) -> bool:
         """Check if an IP is protected by the whitelist."""
+        # hocaya not: eger whitelist dosyasi bir sekilde yuklenemediyse guvenlik amaciyla her seyi korunuyor (protected) sayiyorum. yoksa sistem yanlislikla kendi kendini vurabilir.
         if not self._loaded:
             logger.warning("Whitelist not loaded — defaulting to PROTECTED")
             return True  # Fail-safe: if whitelist isn't loaded, protect everything

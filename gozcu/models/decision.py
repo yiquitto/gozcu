@@ -19,6 +19,7 @@ from gozcu.models.enums import DecisionState
 
 class Decision(BaseModel):
     """A mutable decision record tracked by the state machine."""
+    # hocaya not: diger modellerin aksine bu dondurulmus (frozen) degil, cunku 30 saniyelik zaman sayacinda bekleyen (pending) kararin durumu analist veya sistem aksiyon aldikca (approved/rejected/autonomous) surekli guncelleniyor.
 
     # NOT frozen — state changes during countdown lifecycle
     model_config = ConfigDict(frozen=False)

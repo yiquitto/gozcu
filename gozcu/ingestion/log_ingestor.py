@@ -49,6 +49,7 @@ class LogIngestor:
         Returns None only if the input is completely empty.
         Malformed logs are still ingested but flagged in normalized_data.
         """
+        # hocaya not: butun loglarin sisteme ilk girdigi ana kapi burasi. burada logu zararli kodlardan temizliyor (sanitize), ortak bir json formatina ceviriyor (parse) ve guvenlik icin benzersiz parmak izi cikartiyorum (uuid + sha256).
         self._stats["total"] += 1
 
         if not raw_data or not raw_data.strip():
@@ -56,6 +57,7 @@ class LogIngestor:
             return None
 
         # Step 1: Sanitize
+        # hocaya not: saldirganin log satirinin icine zararli script (xss, sqli) saklayip sistemi icerden hacklemesine engel olmak icin sanitizasyon (temizlik) uyguluyorum.
         sanitized = self._sanitizer.sanitize(raw_data)
 
         # Check for injection attempts

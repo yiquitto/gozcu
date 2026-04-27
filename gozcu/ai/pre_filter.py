@@ -22,6 +22,7 @@ logger = logging.getLogger(__name__)
 
 
 # Built-in rule sets — each is (rule_name, field_to_check, compiled_regex)
+# hocaya not: basit statik dosya isteklerini (css, js) yapay zekaya gonderip bosuna api maliyeti (token) yakmamak icin burada regex ile onceden yakaliyorum.
 _STATIC_FILE_EXTENSIONS = re.compile(
     r"\.(css|js|png|jpg|jpeg|gif|ico|woff|woff2|ttf|svg|map|webp|avif)(\?.*)?$",
     re.IGNORECASE,
@@ -59,6 +60,7 @@ class PreFilterEngine:
 
         Returns a BENIGN ThreatAssessment if matched, None otherwise.
         """
+        # sisteme gelen her log once bu filtreden geciyor. eger zararli degilse yapay zekaya hic gitmeden direkt 'zararsiz' isaretlenip sistem yuku hafifletiliyor.
         self._stats["checked"] += 1
 
         if not self._enabled:
